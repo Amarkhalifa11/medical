@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\ServiceController;
+use App\Models\Doctors;
+use App\Models\Gallary;
+use App\Models\Question;
+use App\Models\Count;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +30,14 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
 ])->group(function () {
 
     Route::get('/home', function () {
-        $services = DB::table('services')->get()->random(3);
-        $departments = DB::table('departments')->get();
-        return view('frontend.home' , compact('services' , 'departments'));
+        $services    =  DB::table('services')->get()->random(3);
+        $departments =  DB::table('departments')->get();
+        $doctors     =  Doctors::all()->random(4);
+        $gallarys    =  Gallary::all();
+        $asks        =  Question::all();
+        $counts      =  Count::all();
+        
+        return view('frontend.home' , compact('services' , 'counts', 'departments' , 'asks' , 'doctors' , 'gallarys'));
     })->name('home');
     
     Route::get('/home/about', function () {
@@ -45,7 +55,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
     })->name('department');
 
     Route::get('/home/doctors', function () {
-        return view('frontend.doctors');
+        $doctors = Doctors::all();
+        return view('frontend.doctors' , compact('doctors'));
     })->name('doctors');
     
     Route::get('/home/contact', function () {
@@ -57,7 +68,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
     })->name('Appointment');
 
     Route::get('/home/gallary', function () {
-        return view('frontend.gallary');
+        $gallarys =  Gallary::all();
+        return view('frontend.gallary' , compact('gallarys'));
     })->name('gallary');
 
     // Route::get('/home/all_service' , [ServiceController::class , 'all_service'])->name('frontend.all_service');

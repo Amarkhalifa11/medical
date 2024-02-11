@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Gallary extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
         'image',
-        'desc',
+        'department_id',
     ];
-
-
 }
