@@ -5,10 +5,13 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ApportController;
 use App\Models\Doctors;
 use App\Models\Gallary;
 use App\Models\Question;
 use App\Models\Count;
+use App\Models\Department;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +39,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
         $gallarys    =  Gallary::all();
         $asks        =  Question::all();
         $counts      =  Count::all();
-        
-        return view('frontend.home' , compact('services' , 'counts', 'departments' , 'asks' , 'doctors' , 'gallarys'));
+        $Department = Department::all();
+
+        return view('frontend.home' , compact('services' , 'Department' , 'counts', 'departments' , 'asks' , 'doctors' , 'gallarys'));
     })->name('home');
     
     Route::get('/home/about', function () {
@@ -64,7 +68,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
     })->name('contact');
         
     Route::get('/home/Appointment', function () {
-        return view('frontend.Appointment');
+        $doctors = Doctors::all();
+        $Department = Department::all();
+        return view('frontend.Appointment' , compact('doctors' , 'Department'));
     })->name('Appointment');
 
     Route::get('/home/gallary', function () {
@@ -72,7 +78,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
         return view('frontend.gallary' , compact('gallarys'));
     })->name('gallary');
 
-    // Route::get('/home/all_service' , [ServiceController::class , 'all_service'])->name('frontend.all_service');
+    Route::post('/home/contact_us' , [ContactController::class , 'store'])->name('frontend.contact.store');
+    Route::post('/home/apport' , [ApportController::class , 'store'])->name('frontend.apport.store');
 
 
 });
