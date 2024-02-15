@@ -80,9 +80,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
 
     Route::post('/home/contact_us' , [ContactController::class , 'store'])->name('frontend.contact.store');
     Route::post('/home/apport' , [ApportController::class , 'store'])->name('frontend.apport.store');
-
-
+    
+    
 });
+
 
 
 Route::get('logout' , [BackendController::class , 'logout'])->name('logout');
@@ -102,12 +103,19 @@ Route::get('logout' , [BackendController::class , 'logout'])->name('logout');
 
 
 
-
 Route::middleware(['auth:admin',config('jetstream.auth_session'),'verified',
 ])->group(function () {
+
     Route::get('/admin/dashboard', function () {
-        return view('dashboard');
+        return view('backend.dashboard');
     })->name('dashboard')->middleware('auth:admin');
+
+    //user
+    Route::get('/admin/dashboard/all_users' , [BackendController::class , 'all_users'])->name('backend.users.all_users');
+
+    
+    
+    Route::get('logeout' , [BackendController::class , 'logeout'])->name('logeout')->middleware('auth:admin');
 });
 
 
