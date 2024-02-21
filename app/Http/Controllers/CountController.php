@@ -8,59 +8,40 @@ use App\Http\Requests\UpdateCountRequest;
 
 class CountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function all_count()
     {
-        //
+        $counts = Count::all();
+        return view('backend.count.all_count' , compact('counts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function edit($id)
     {
-        //
+        $counts = Count::find($id);
+        return view('backend.count.edit_count' , compact('counts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCountRequest $request)
+    public function update(UpdateCountRequest $request, $id)
     {
-        //
+        $counts = Count::find($id);
+
+        $title = $request->title;
+        $count = $request->count;
+        $desc  = $request->desc;
+
+        $counts->update([
+            'title' => $title,
+            'count' => $count,
+            'desc'  => $desc,
+        ]);
+
+        return redirect()->route('backend.admins.all_count')->with('message' , 'updated sucessfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Count $count)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Count $count)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCountRequest $request, Count $count)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Count $count)
-    {
-        //
+        $counts = Count::find($id);
+        $counts->delete();
+        return redirect()->back()->with('message' , 'deleted successfully');
     }
 }

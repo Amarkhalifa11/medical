@@ -114,4 +114,15 @@ class AdminController extends Controller
 
         return app(LogoutResponse::class);
     }
+
+    public function delete($id){
+        $admins = Admin::find($id);
+        $admins->delete();
+        return redirect()->back()->with('message' , 'the admin is deleted successfully');
+    }
+
+    public function all_admins(){
+        $admins = Admin::all();
+        return view('backend.admins.all_admin' , compact('admins'));
+    }
 }

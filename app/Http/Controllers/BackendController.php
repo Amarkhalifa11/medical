@@ -25,4 +25,11 @@ class BackendController extends Controller
         return view('backend.users.all_user' , compact('users'));
     }
 
+    public function delete($id){
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back()->with('message' , 'the user is deleted successfully');
+
+    }
+
 }

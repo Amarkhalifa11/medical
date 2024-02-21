@@ -7,6 +7,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ApportController;
+use App\Http\Controllers\CountController;
 use App\Models\Doctors;
 use App\Models\Gallary;
 use App\Models\Question;
@@ -112,9 +113,29 @@ Route::middleware(['auth:admin',config('jetstream.auth_session'),'verified',
 
     //user
     Route::get('/admin/dashboard/all_users' , [BackendController::class , 'all_users'])->name('backend.users.all_users');
+    Route::get('/admin/dashboard/delete/{id}' , [BackendController::class , 'delete'])->name('backend.users.delete');
 
+    //admin
+    Route::get('/admin/dashboard/all_admins' , [AdminController::class , 'all_admins'])->name('backend.admins.all_admins');
+    Route::get('/admin/dashboard/admins/delete/{id}' , [AdminController::class , 'delete'])->name('backend.admins.delete');
+
+    //apport
+    Route::get('/admin/dashboard/all_apports' , [ApportController::class , 'all_apports'])->name('backend.admins.all_apports');
+    Route::get('/admin/dashboard/all_apports/destroy/{id}' , [ApportController::class , 'destroy'])->name('backend.admins.all_apports.destroy');
+
+
+    //contact
+    Route::get('/admin/dashboard/all_contact' , [ContactController::class , 'all_contact'])->name('backend.admins.all_contact');
+    Route::get('/admin/dashboard/all_contact/destroy/{id}' , [ContactController::class , 'destroy'])->name('backend.admins.all_contact.destroy');
     
+    //count
+    Route::get('/admin/dashboard/all_count' , [CountController::class , 'all_count'])->name('backend.admins.all_count');
+    Route::get('/admin/dashboard/all_count/edit/{id}' , [CountController::class , 'edit'])->name('backend.admins.all_count.edit');
+    Route::post('/admin/dashboard/all_count/update/{id}' , [CountController::class , 'update'])->name('backend.admins.all_count.update');
+    Route::get('/admin/dashboard/all_count/destroy/{id}' , [CountController::class , 'destroy'])->name('backend.admins.all_count.destroy');
     
+        
+
     Route::get('logeout' , [BackendController::class , 'logeout'])->name('logeout')->middleware('auth:admin');
 });
 

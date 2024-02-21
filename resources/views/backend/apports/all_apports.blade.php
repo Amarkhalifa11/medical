@@ -1,6 +1,6 @@
 @extends('backend.layouts.index')
 @section('content')
-    <h1 style="margin-left: 500px" class="mt-5">all users : {{count($users)}}</h1>
+    <h1 style="margin-left: 500px" class="mt-5">all Apports</h1>
 
 
 
@@ -20,6 +20,11 @@
                   <th scope="col">id</th>
                   <th scope="col">Name</th>
                   <th scope="col">email</th>
+                  <th scope="col">phone</th>
+                  <th scope="col">doctor</th>
+                  <th scope="col">department</th>
+                  <th scope="col">date</th>
+                  <th scope="col">message</th>
                   <th scope="col">created_at</th>
                   <th scope="col">updated_at</th>
                   <th scope="col">delete</th>
@@ -27,15 +32,20 @@
               </thead>
               <tbody>
                 <?php $i=1; ?>
-                @foreach ($users as $user)
+                @foreach ($apports as $apport)
                     
                 <tr>
                   <th scope="row">{{$i++}}</th>
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->email}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
-                  <td><a href="{{ route('backend.users.delete', ['id'=>$user->id]) }}" class="btn btn-danger">delete</a></td>
+                  <td>{{$apport->name}}</td>
+                  <td>{{$apport->email}}</td>
+                  <td>{{$apport->phone}}</td>
+                  <td>{{$apport->doctor}}</td>
+                  <td>{{$apport->department}}</td>
+                  <td>{{$apport->date}}</td>
+                  <td>{{$apport->message}}</td>
+                  <td>{{$apport->created_at}}</td>
+                  <td>{{$apport->updated_at}}</td>
+                  <td><a href="{{ route('backend.admins.all_apports.destroy', ['id'=>$apport->id]) }}" class="btn btn-danger">delete</a></td>
                 </tr>
                 @endforeach
 

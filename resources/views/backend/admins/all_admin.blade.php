@@ -1,6 +1,6 @@
 @extends('backend.layouts.index')
 @section('content')
-    <h1 style="margin-left: 500px" class="mt-5">all users : {{count($users)}}</h1>
+    <h1 style="margin-left: 500px" class="mt-5">all Admin : {{count($admins)}}</h1>
 
 
 
@@ -27,15 +27,15 @@
               </thead>
               <tbody>
                 <?php $i=1; ?>
-                @foreach ($users as $user)
+                @foreach ($admins as $admin)
                     
                 <tr>
                   <th scope="row">{{$i++}}</th>
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->email}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
-                  <td><a href="{{ route('backend.users.delete', ['id'=>$user->id]) }}" class="btn btn-danger">delete</a></td>
+                  <td>{{$admin->name}}</td>
+                  <td>{{$admin->email}}</td>
+                  <td>{{$admin->created_at}}</td>
+                  <td>{{$admin->updated_at}}</td>
+                  <td><a href="{{ route('backend.admins.delete', ['id'=>$admin->id]) }}" class="btn btn-danger">delete</a></td>
                 </tr>
                 @endforeach
 

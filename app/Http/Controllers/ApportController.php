@@ -9,25 +9,7 @@ use App\Http\Requests\UpdateApportRequest;
 
 class ApportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreApportRequest $request)
     {
         $name          = $request->name;
@@ -52,35 +34,17 @@ class ApportController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Apport $apport)
+    public function all_apports()
     {
-        //
+        $apports = Apport::latest()->get();
+        return view('backend.apports.all_apports' , compact('apports'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Apport $apport)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateApportRequest $request, Apport $apport)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Apport $apport)
-    {
-        //
+        $apport = Apport::find($id);
+        $apport->delete();
+        return redirect()->back()->with('message' , 'the apport is deleted success');
     }
 }

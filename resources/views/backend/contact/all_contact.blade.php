@@ -1,6 +1,6 @@
 @extends('backend.layouts.index')
 @section('content')
-    <h1 style="margin-left: 500px" class="mt-5">all users : {{count($users)}}</h1>
+    <h1 style="margin-left: 500px" class="mt-5">all Contact_us</h1>
 
 
 
@@ -20,6 +20,8 @@
                   <th scope="col">id</th>
                   <th scope="col">Name</th>
                   <th scope="col">email</th>
+                  <th scope="col">subject</th>
+                  <th scope="col">message</th>
                   <th scope="col">created_at</th>
                   <th scope="col">updated_at</th>
                   <th scope="col">delete</th>
@@ -27,15 +29,17 @@
               </thead>
               <tbody>
                 <?php $i=1; ?>
-                @foreach ($users as $user)
+                @foreach ($contacts as $contact)
                     
                 <tr>
                   <th scope="row">{{$i++}}</th>
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->email}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
-                  <td><a href="{{ route('backend.users.delete', ['id'=>$user->id]) }}" class="btn btn-danger">delete</a></td>
+                  <td>{{$contact->name}}</td>
+                  <td>{{$contact->email}}</td>
+                  <td>{{$contact->subject}}</td>
+                  <td>{{$contact->message}}</td>
+                  <td>{{$contact->created_at}}</td>
+                  <td>{{$contact->updated_at}}</td>
+                  <td><a href="{{ route('backend.admins.all_contact.destroy', ['id'=>$contact->id]) }}" class="btn btn-danger">delete</a></td>
                 </tr>
                 @endforeach
 

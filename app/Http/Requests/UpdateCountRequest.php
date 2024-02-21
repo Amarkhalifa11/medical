@@ -11,7 +11,7 @@ class UpdateCountRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UpdateCountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'count' => 'required',
+            'desc' => 'required',
         ];
     }
+
+    public function messages()
+{
+    return [
+        'title.required' => 'the title is null.',
+        'count.required' => 'the count is null.',
+        'desc.required' => 'the desc is null.',
+    ];
+}
 }

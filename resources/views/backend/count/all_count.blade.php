@@ -1,6 +1,6 @@
 @extends('backend.layouts.index')
 @section('content')
-    <h1 style="margin-left: 500px" class="mt-5">all users : {{count($users)}}</h1>
+    <h1 style="margin-left: 500px" class="mt-5">all Count</h1>
 
 
 
@@ -18,24 +18,28 @@
               <thead>
                 <tr>
                   <th scope="col">id</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">email</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">count</th>
+                  <th scope="col">description</th>
                   <th scope="col">created_at</th>
                   <th scope="col">updated_at</th>
+                  <th scope="col">update</th>
                   <th scope="col">delete</th>
                 </tr>
               </thead>
               <tbody>
                 <?php $i=1; ?>
-                @foreach ($users as $user)
+                @foreach ($counts as $count)
                     
                 <tr>
                   <th scope="row">{{$i++}}</th>
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->email}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
-                  <td><a href="{{ route('backend.users.delete', ['id'=>$user->id]) }}" class="btn btn-danger">delete</a></td>
+                  <td>{{$count->title}}</td>
+                  <td>{{$count->count}}</td>
+                  <td>{{$count->desc}}</td>
+                  <td>{{$count->created_at}}</td>
+                  <td>{{$count->updated_at}}</td>
+                  <td><a href="{{ route('backend.admins.all_count.edit', ['id'=>$count->id]) }}" class="btn btn-success">update</a></td>
+                  <td><a href="{{ route('backend.admins.all_count.destroy', ['id'=>$count->id]) }}" class="btn btn-danger">delete</a></td>
                 </tr>
                 @endforeach
 

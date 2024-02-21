@@ -9,9 +9,10 @@ use App\Http\Requests\UpdateContactRequest;
 class ContactController extends Controller
 {
 
-    public function index()
+    public function all_contact()
     {
-        //
+        $contacts = Contact::all();
+        return view('backend.contact.all_contact' , compact('contacts'));
     }
 
     public function store(StoreContactRequest $request)
@@ -31,35 +32,10 @@ class ContactController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Contact $contact)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Contact $contact)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateContactRequest $request, Contact $contact)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Contact $contact)
-    {
-        //
+        $contacts = Contact::find($id);
+        $contacts->delete();
+        return redirect()->back()->with('message' , 'the contact is deleted success');
     }
 }
