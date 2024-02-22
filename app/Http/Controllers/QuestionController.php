@@ -8,59 +8,57 @@ use App\Http\Requests\UpdateQuestionRequest;
 
 class QuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function all_questions()
     {
-        //
+        $questions = Question::all();
+        return view('backend.quations.all_quation' , compact('questions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('backend.quations.add_quations');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreQuestionRequest $request)
     {
-        //
+        $ask = $request->ask;
+        $answer = $request->answer;
+
+        $questions = Question::create([
+            'ask' => $ask,
+            'answer' => $answer,
+        ]);
+
+        return redirect()->route('backend.admins.all_questions')->with('message'  , 'the quations is added succefully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Question $question)
+    public function edit($id)
     {
-        //
+        $questions = Question::find($id);
+        return view('backend.quations.edit_quations' , compact('questions'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Question $question)
+    public function update(UpdateQuestionRequest $request,$id)
     {
-        //
+        $questions = Question::find($id);
+        $ask = $request->ask;
+        $answer = $request->answer;
+
+        $questions->update([
+            'ask' => $ask,
+            'answer' => $answer,
+        ]);
+
+        return redirect()->route('backend.admins.all_questions')->with('message'  , 'the quations is updated succefully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateQuestionRequest $request, Question $question)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Question $question)
-    {
-        //
+        $questions = Question::find($id);
+        $questions->delete();
+        return redirect()->route('backend.admins.all_questions')->with('message'  , 'the quations is deleted succefully');
+        
     }
 }

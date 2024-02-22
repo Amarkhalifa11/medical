@@ -8,59 +8,78 @@ use App\Http\Requests\UpdateDepartmentRequest;
 
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function all_department()
     {
-        //
+        $departments = Department::all();
+        return view('backend.department.all_department' , compact('departments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('backend.department.add_department');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreDepartmentRequest $request)
     {
-        //
+        $name     = $request->name;
+        $desc     = $request->desc;
+        $imageq   = $request->file('image');
+
+        $name_gen = hexdec(uniqid()); 
+        $img_ext = strtolower($imageq->getClientOriginalExtension()); 
+        $img_name = $name_gen . '.' . $img_ext; 
+         
+        $upload_location = 'frontend/assets/img/'; 
+        $image = $img_name; 
+        $imageq->move($upload_location,$img_name); 
+
+        $departments = Department::create([
+            'name'   => $name,
+            'image'  => $image,
+            'desc'   => $desc,
+        ]);
+
+        return redirect()->route('backend.admins.all_department')->with('message' , 'the department is added succefully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Department $department)
+
+    public function edit($id)
     {
-        //
+        $departments = Department::find($id);
+        return view('backend.department.edit_department' , compact('departments'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Department $department)
+    public function update(UpdateDepartmentRequest $request, $id)
     {
-        //
+        $departments = Department::find($id);
+
+        $name     = $request->name;
+        $desc     = $request->desc;
+        $imageq   = $request->file('image');
+
+        $name_gen = hexdec(uniqid()); 
+        $img_ext = strtolower($imageq->getClientOriginalExtension()); 
+        $img_name = $name_gen . '.' . $img_ext; 
+         
+        $upload_location = 'frontend/assets/img/'; 
+        $image = $img_name; 
+        $imageq->move($upload_location,$img_name); 
+
+        $departments->update([
+            'name'   => $name,
+            'image'  => $image,
+            'desc'   => $desc,
+        ]);
+
+        return redirect()->route('backend.admins.all_department')->with('message' , 'the department is ipdated succefully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateDepartmentRequest $request, Department $department)
+    public function destroy($id)
     {
-        //
-    }
+        $departments = Department::find($id);
+        $departments->delete();
+        return redirect()->route('backend.admins.all_department')->with('message' , 'the department is deleted succefully');
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Department $department)
-    {
-        //
     }
 }

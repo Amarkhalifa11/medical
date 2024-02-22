@@ -8,6 +8,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ApportController;
 use App\Http\Controllers\CountController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\QuestionController;
 use App\Models\Doctors;
 use App\Models\Gallary;
 use App\Models\Question;
@@ -134,8 +136,25 @@ Route::middleware(['auth:admin',config('jetstream.auth_session'),'verified',
     Route::post('/admin/dashboard/all_count/update/{id}' , [CountController::class , 'update'])->name('backend.admins.all_count.update');
     Route::get('/admin/dashboard/all_count/destroy/{id}' , [CountController::class , 'destroy'])->name('backend.admins.all_count.destroy');
     
-        
+    //department
+    Route::get('/admin/dashboard/all_department' , [DepartmentController::class , 'all_department'])->name('backend.admins.all_department');
+    Route::get('/admin/dashboard/all_department/create' , [DepartmentController::class , 'create'])->name('backend.admins.department.create');
+    Route::post('/admin/dashboard/all_department/store' , [DepartmentController::class , 'store'])->name('backend.admins.department.store');
+    Route::get('/admin/dashboard/all_department/edit/{id}' , [DepartmentController::class , 'edit'])->name('backend.admins.department.edit');
+    Route::post('/admin/dashboard/all_department/update/{id}' , [DepartmentController::class , 'update'])->name('backend.admins.department.update');
+    Route::get('/admin/dashboard/all_department/destroy/{id}' , [DepartmentController::class , 'destroy'])->name('backend.admins.department.destroy');
+            
 
+
+    //quations
+    Route::get('/admin/dashboard/all_questions' , [QuestionController::class , 'all_questions'])->name('backend.admins.all_questions');
+    Route::get('/admin/dashboard/all_questions/create' , [QuestionController::class , 'create'])->name('backend.admins.all_questions.create');
+    Route::post('/admin/dashboard/all_questions/store' , [QuestionController::class , 'store'])->name('backend.admins.all_questions.store');
+    Route::get('/admin/dashboard/all_questions/edit/{id}' , [QuestionController::class , 'edit'])->name('backend.admins.all_questions.edit');
+    Route::post('/admin/dashboard/all_questions/update/{id}' , [QuestionController::class , 'update'])->name('backend.admins.all_questions.update');
+    Route::get('/admin/dashboard/all_questions/destroy/{id}' , [QuestionController::class , 'destroy'])->name('backend.admins.all_questions.destroy');
+          
+        
     Route::get('logeout' , [BackendController::class , 'logeout'])->name('logeout')->middleware('auth:admin');
 });
 

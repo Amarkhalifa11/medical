@@ -28,12 +28,12 @@ class UpdateCountRequest extends FormRequest
         ];
     }
 
-    public function messages()
-{
-    return [
+    public function messages(){
+
+        return [
         'title.required' => 'the title is null.',
         'count.required' => 'the count is null.',
         'desc.required' => 'the desc is null.',
-    ];
-}
+        ];
+    }
 }

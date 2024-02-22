@@ -11,7 +11,7 @@ class UpdateDepartmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UpdateDepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'image' => 'required',
+            'desc' => 'required',
+        ];
+    }
+
+    public function messages(){
+
+        return [
+        'name.required' => 'the title is null.',
+        'image.required' => 'the count is null.',
+        'desc.required' => 'the desc is null.',
         ];
     }
 }
