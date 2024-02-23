@@ -10,6 +10,9 @@ use App\Http\Controllers\ApportController;
 use App\Http\Controllers\CountController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\GallaryController;
+use App\Http\Controllers\DoctorsController;
+
 use App\Models\Doctors;
 use App\Models\Gallary;
 use App\Models\Question;
@@ -154,6 +157,31 @@ Route::middleware(['auth:admin',config('jetstream.auth_session'),'verified',
     Route::post('/admin/dashboard/all_questions/update/{id}' , [QuestionController::class , 'update'])->name('backend.admins.all_questions.update');
     Route::get('/admin/dashboard/all_questions/destroy/{id}' , [QuestionController::class , 'destroy'])->name('backend.admins.all_questions.destroy');
           
+
+    //services
+    Route::get('/admin/dashboard/all_services' , [ServiceController::class , 'all_service'])->name('backend.admins.all_services');
+    Route::get('/admin/dashboard/all_services/create' , [ServiceController::class , 'create'])->name('backend.admins.all_services.create');
+    Route::post('/admin/dashboard/all_services/store' , [ServiceController::class , 'store'])->name('backend.admins.all_services.store');
+    Route::get('/admin/dashboard/all_services/edit/{id}' , [ServiceController::class , 'edit'])->name('backend.admins.all_services.edit');
+    Route::post('/admin/dashboard/all_services/update/{id}' , [ServiceController::class , 'update'])->name('backend.admins.all_services.update');
+    Route::get('/admin/dashboard/all_services/destroy/{id}' , [ServiceController::class , 'destroy'])->name('backend.admins.all_services.destroy');
+          
+    //gallary
+    Route::get('/admin/dashboard/all_images' , [GallaryController::class , 'all_images'])->name('backend.admins.all_images');
+    Route::get('/admin/dashboard/gallary/create' , [GallaryController::class , 'create'])->name('backend.admins.gallary.create');
+    Route::post('/admin/dashboard/gallary/store' , [GallaryController::class , 'store'])->name('backend.admins.gallary.store');
+    Route::get('/admin/dashboard/gallary/edit/{id}' , [GallaryController::class , 'edit'])->name('backend.admins.gallary.edit');
+    Route::post('/admin/dashboard/gallary/update/{id}' , [GallaryController::class , 'update'])->name('backend.admins.gallary.update');
+    Route::get('/admin/dashboard/gallary/destroy/{id}' , [GallaryController::class , 'destroy'])->name('backend.admins.gallary.destroy');    
+
+    //doctors
+    Route::get('/admin/dashboard/all_doctors' , [DoctorsController::class , 'all_doctors'])->name('backend.admins.all_doctors');
+    Route::get('/admin/dashboard/doctors/create' , [DoctorsController::class , 'create'])->name('backend.admins.doctors.create');
+    Route::post('/admin/dashboard/doctors/store' , [DoctorsController::class , 'store'])->name('backend.admins.doctors.store');
+    Route::get('/admin/dashboard/doctors/edit/{id}' , [DoctorsController::class , 'edit'])->name('backend.admins.doctors.edit');
+    Route::post('/admin/dashboard/doctors/update/{id}' , [DoctorsController::class , 'update'])->name('backend.admins.doctors.update');
+    Route::get('/admin/dashboard/doctors/destroy/{id}' , [DoctorsController::class , 'destroy'])->name('backend.admins.doctors.destroy');    
+
         
     Route::get('logeout' , [BackendController::class , 'logeout'])->name('logeout')->middleware('auth:admin');
 });

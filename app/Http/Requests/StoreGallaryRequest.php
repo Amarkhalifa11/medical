@@ -11,7 +11,7 @@ class StoreGallaryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class StoreGallaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'image' => 'required',
+            'department_id' => 'required',
+        ];
+    }
+
+    public function messages(){
+
+        return [
+        'image.required' => 'the image is null.',
+        'department_id.required' => 'the department_id is null.',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\User;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 
@@ -11,37 +12,66 @@ class ServiceController extends Controller
 
     public function all_service()
     {
-        // $services = DB::table('services')->all();
-        // return view('frontend.service' , compact('services'));
+        $services = Service::all();
+        return view('backend.servics.all_services' , compact('services'));
     }
 
     public function create()
     {
-        //
+        $users = User::all();
+        return view('backend.servics.add_service' , compact('users'));
     }
 
     public function store(StoreServiceRequest $request)
     {
-        //
+        $title     = $request->title;
+        $desc      = $request->desc;
+        $icon      = $request->icon;
+        $user_id   = $request->user_id;
+
+        $services = Service::create([
+            'title'     => $title,
+            'desc'      => $desc,
+            'icon'      => $icon,
+            'user_id'   => $user_id,
+        ]);
+
+        return redirect()->route('backend.admins.all_services')->with('message' , 'the service is added successfully');
+
     }
 
-    public function show(Service $service)
+    public function edit($id)
     {
-        //
+        $users = User::all();
+        $services = Service::find($id);
+        return view('backend.servics.edit_service' , compact('services' , 'users'));
+        
     }
 
-    public function edit(Service $service)
+    public function update(UpdateServiceRequest $request,$id)
     {
-        //
+        $services = Service::find($id);
+
+        $title     = $request->title;
+        $desc      = $request->desc;
+        $icon      = $request->icon;
+        $user_id   = $request->user_id;
+
+        $services->update([
+            'title'     => $title,
+            'desc'      => $desc,
+            'icon'      => $icon,
+            'user_id'   => $user_id,
+        ]);
+
+        return redirect()->route('backend.admins.all_services')->with('message' , 'the service is updated successfully');
+        
     }
 
-    public function update(UpdateServiceRequest $request, Service $service)
+    public function destroy($id)
     {
-        //
-    }
-
-    public function destroy(Service $service)
-    {
-        //
+        $services = Service::find($id);
+        $services->delete();
+        return redirect()->route('backend.admins.all_services')->with('message' , 'the service is deleted successfully');
     }
 }

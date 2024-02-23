@@ -11,7 +11,7 @@ class UpdateDoctorsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,28 @@ class UpdateDoctorsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'          => 'required',
+            'image'         => 'required',
+            'desc'          => 'required',
+            'twitter'       => 'required',
+            'instagram'     => 'required',
+            'linkiden'      => 'required',
+            'facebook'      => 'required',
+            'department_id' => 'required',
+        ];
+    }
+
+    public function messages(){
+
+        return [
+        'name.required'           => 'the name is null.',
+        'image.required'          => 'the image is null.',
+        'desc.required'           => 'the desc is null.',
+        'twitter.required'        => 'the twitter is null.',
+        'instagram.required'      => 'the instagram is null.',
+        'linkiden.required'       => 'the linkiden is null.',
+        'facebook.required'       => 'the facebook is null.',
+        'department_id.required'  => 'the department_id is null.',
         ];
     }
 }

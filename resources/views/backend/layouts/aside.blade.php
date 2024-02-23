@@ -81,7 +81,6 @@
         </ul>
       </li><!-- End Icons Nav -->
 
-
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#componentss-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -101,8 +100,6 @@
         </ul>
       </li><!-- End Components Nav -->    
 
-
-      
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-ssnav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Quations</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -123,6 +120,66 @@
 
         </ul>
       </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#aaforms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Services</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="aaforms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('backend.admins.all_services') }}">
+              <i class="bi bi-circle"></i><span>All Services</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{ route('backend.admins.all_services.create') }}">
+              <i class="bi bi-circle"></i><span>Add Services</span>
+            </a>
+          </li>
+
+        </ul>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-navaa" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Gallary</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-navaa" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('backend.admins.all_images') }}">
+              <i class="bi bi-circle"></i><span>All Images</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{ route('backend.admins.gallary.create') }}">
+              <i class="bi bi-circle"></i><span>Add Images</span>
+            </a>
+          </li>
+
+        </ul>
+      </li><!-- End Tables Nav -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nassv" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Doctors</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nassv" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('backend.admins.all_doctors') }}">
+              <i class="bi bi-circle"></i><span>All Doctors</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{ route('backend.admins.doctors.create') }}">
+              <i class="bi bi-circle"></i><span>Add Doctors</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
 
     </ul>
 

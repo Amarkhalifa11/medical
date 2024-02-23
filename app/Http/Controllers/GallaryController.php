@@ -3,64 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallary;
+use App\Models\Department;
 use App\Http\Requests\StoreGallaryRequest;
 use App\Http\Requests\UpdateGallaryRequest;
 
 class GallaryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function all_images()
     {
-        //
+        $images = Gallary::all();
+        return view('backend.gallary.all_images' , compact('images'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $departments = Department::all();
+        return view('backend.gallary.add_image' , compact('departments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreGallaryRequest $request)
     {
-        //
+        $department_id = $request->department_id;
+        $imageq         = $request->file('image');
+
+        $name_gen = hexdec(uniqid()); 
+        $img_ext = strtolower($imageq->getClientOriginalExtension()); 
+        $img_name = $name_gen . '.' . $img_ext; 
+         
+        $upload_location = 'frontend/assets/img/gallery/'; 
+        $image = $img_name; 
+        $imageq->move($upload_location,$img_name); 
+
+        $gallary = Gallary::create([
+            'department_id'   => $department_id,
+            'image'            => $image,
+        ]);
+
+        return redirect()->route('backend.admins.all_images')->with('message' , 'the image is added succefully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Gallary $gallary)
+    public function edit( $id)
     {
-        //
+        $departments = Department::all();
+        $gallary = Gallary::find($id);
+        return view('backend.gallary.edit_image' , compact('gallary' , 'departments'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Gallary $gallary)
+    public function update(UpdateGallaryRequest $request, $id)
     {
-        //
+        $gallary = Gallary::find($id);
+        $department_id = $request->department_id;
+        $imageq         = $request->file('image');
+
+        $name_gen = hexdec(uniqid()); 
+        $img_ext = strtolower($imageq->getClientOriginalExtension()); 
+        $img_name = $name_gen . '.' . $img_ext; 
+         
+        $upload_location = 'frontend/assets/img/gallery/'; 
+        $image = $img_name; 
+        $imageq->move($upload_location,$img_name); 
+
+        $gallary->update([
+            'department_id'   => $department_id,
+            'image'            => $image,
+        ]);
+
+        return redirect()->route('backend.admins.all_images')->with('message' , 'the image is update succefully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateGallaryRequest $request, Gallary $gallary)
+    public function destroy($id)
     {
-        //
-    }
+        $gallary = Gallary::find($id);
+        $gallary->delete();
+        return redirect()->route('backend.admins.all_images')->with('message' , 'the image is deleted succefully');
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Gallary $gallary)
-    {
-        //
     }
 }

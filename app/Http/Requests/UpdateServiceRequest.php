@@ -11,7 +11,7 @@ class UpdateServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,20 @@ class UpdateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'desc' => 'required',
+            'icon' => 'required',
+            'user_id' => 'required',
+        ];
+    }
+
+    public function messages(){
+
+        return [
+        'title.required' => 'the title is null.',
+        'desc.required' => 'the desc is null.',
+        'icon.required' => 'the icon is null.',
+        'user_id.required' => 'the user_id is null.',
         ];
     }
 }

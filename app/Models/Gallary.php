@@ -12,4 +12,9 @@ class Gallary extends Model
         'image',
         'department_id',
     ];
+
+    public function depart()
+    {
+        return $this->hasOne(Department::class, 'id', 'department_id');
+    }
 }
