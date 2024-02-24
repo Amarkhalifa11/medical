@@ -86,7 +86,7 @@ class DoctorsController extends Controller
         $imageq->move($upload_location,$img_name); 
 
         $doctors->update([
-            'name'             => $department_id,
+            'name'             => $name,
             'image'            => $image,
             'desc'             => $desc,
             'twitter'          => $twitter,
